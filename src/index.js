@@ -7,7 +7,44 @@ import {
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 
-const KREA_API_BASE = "https://api.krea.ai/v1";
+const KREA_API_BASE = "https://api.krea.ai";
+
+// Model mappings: user-friendly name -> API path
+const IMAGE_MODELS = {
+  "flux": "bfl/flux-1-dev",
+  "flux-dev": "bfl/flux-1-dev",
+  "flux-pro": "bfl/flux-1-pro",
+  "flux-schnell": "bfl/flux-1-schnell",
+  "ideogram": "ideogram/v2",
+  "ideogram-v2": "ideogram/v2",
+  "imagen-4": "google/imagen/v4",
+  "imagen": "google/imagen/v4",
+  "krea-1": "krea/k1",
+  "krea": "krea/k1",
+  "chatgpt-image": "openai/gpt-image/v1",
+  "gpt-image": "openai/gpt-image/v1",
+  "nano-banana": "google/nano-banana-pro",
+  "seedream": "bytedance/seedream/v4",
+};
+
+const VIDEO_MODELS = {
+  "hailuo": "minimax/hailuo",
+  "hailuo-i2v": "minimax/hailuo-i2v",
+  "kling": "kuaishou/kling/v1.6",
+  "kling-1.6": "kuaishou/kling/v1.6",
+  "runway": "runway/gen4",
+  "runway-gen4": "runway/gen4",
+  "pika": "pika/v2",
+  "pika-2": "pika/v2",
+  "veo-3": "google/veo/v3",
+  "veo": "google/veo/v3",
+  "wan": "alibaba/wan/v2.5",
+  "wan-2.5": "alibaba/wan/v2.5",
+  "sora": "openai/sora/v2",
+  "sora-2": "openai/sora/v2",
+  "luma": "luma/ray/v2",
+  "ray-2": "luma/ray/v2",
+};
 
 class KreaClient {
   constructor(apiKey) {
@@ -27,23 +64,42 @@ class KreaClient {
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`Krea API error: ${response.status} - ${error}`);
+      throw new Error(`Krea API error: ${response.status} - ${error.slice(0, 200)}`);
     }
 
     return response.json();
   }
 
   async generateImage(params) {
-    return this.request("/images/generations", {
+    const modelPath = IMAGE_MODELS[params.model] || IMAGE_MODELS["flux"];
+    const body = {
+      prompt: params.prompt,
+    };
+    if (params.width) body.width = params.width;
+    if (params.height) body.height = params.height;
+    if (params.steps) body.steps = params.steps;
+    if (params.negative_prompt) body.negative_prompt = params.negative_prompt;
+    if (params.style_id) body.style_id = params.style_id;
+    if (params.image_url) body.image_url = params.image_url;
+
+    return this.request(`/generate/image/${modelPath}`, {
       method: "POST",
-      body: JSON.stringify(params),
+      body: JSON.stringify(body),
     });
   }
 
   async generateVideo(params) {
-    return this.request("/videos/generations", {
+    const modelPath = VIDEO_MODELS[params.model] || VIDEO_MODELS["hailuo"];
+    const body = {
+      prompt: params.prompt,
+    };
+    if (params.image_url) body.image_url = params.image_url;
+    if (params.duration) body.duration = params.duration;
+    if (params.aspect_ratio) body.aspect_ratio = params.aspect_ratio;
+
+    return this.request(`/generate/video/${modelPath}`, {
       method: "POST",
-      body: JSON.stringify(params),
+      body: JSON.stringify(body),
     });
   }
 
@@ -52,8 +108,13 @@ class KreaClient {
   }
 
   async listJobs(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/jobs${query ? `?${query}` : ""}`);
+    const queryParts = [];
+    if (params.limit) queryParts.push(`limit=${params.limit}`);
+    if (params.cursor) queryParts.push(`cursor=${encodeURIComponent(params.cursor)}`);
+    if (params.status) queryParts.push(`status=${params.status}`);
+    if (params.types) queryParts.push(`types=${params.types}`);
+    const query = queryParts.length > 0 ? `?${queryParts.join("&")}` : "";
+    return this.request(`/jobs${query}`);
   }
 
   async uploadAsset(url, name) {
@@ -68,13 +129,17 @@ class KreaClient {
   }
 
   async listAssets(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    return this.request(`/assets${query ? `?${query}` : ""}`);
+    const queryParts = [];
+    if (params.limit) queryParts.push(`limit=${params.limit}`);
+    if (params.cursor) queryParts.push(`cursor=${encodeURIComponent(params.cursor)}`);
+    const query = queryParts.length > 0 ? `?${queryParts.join("&")}` : "";
+    return this.request(`/assets${query}`);
   }
 
   async searchStyles(query, params = {}) {
-    const searchParams = new URLSearchParams({ query, ...params }).toString();
-    return this.request(`/styles/search?${searchParams}`);
+    const queryParts = [`query=${encodeURIComponent(query)}`];
+    if (params.limit) queryParts.push(`limit=${params.limit}`);
+    return this.request(`/styles/search?${queryParts.join("&")}`);
   }
 
   async getStyle(styleId) {
@@ -85,7 +150,7 @@ class KreaClient {
 const TOOLS = [
   {
     name: "generate_image",
-    description: "Generate an image using Krea AI. Supports multiple models including Flux, Ideogram, Imagen, and more.",
+    description: "Generate an image using Krea AI. Returns a job_id - use get_job to check status and get the result URL.",
     inputSchema: {
       type: "object",
       properties: {
@@ -95,8 +160,8 @@ const TOOLS = [
         },
         model: {
           type: "string",
-          description: "Model to use (e.g., 'flux-dev', 'ideogram-v2', 'imagen-4', 'krea-1')",
-          default: "flux-dev",
+          description: "Model: flux (default), flux-pro, ideogram, imagen-4, krea-1, chatgpt-image, nano-banana, seedream",
+          default: "flux",
         },
         width: {
           type: "number",
@@ -108,9 +173,13 @@ const TOOLS = [
           description: "Image height in pixels",
           default: 1024,
         },
+        image_url: {
+          type: "string",
+          description: "Optional source image URL for image-to-image generation",
+        },
         style_id: {
           type: "string",
-          description: "Optional style ID to apply to the generation",
+          description: "Optional style ID to apply",
         },
         negative_prompt: {
           type: "string",
@@ -122,7 +191,7 @@ const TOOLS = [
   },
   {
     name: "generate_video",
-    description: "Generate a video using Krea AI. Supports models like Hailuo, Kling, Runway, Pika, and more.",
+    description: "Generate a video using Krea AI. Returns a job_id - use get_job to check status and get the result URL.",
     inputSchema: {
       type: "object",
       properties: {
@@ -132,12 +201,12 @@ const TOOLS = [
         },
         model: {
           type: "string",
-          description: "Model to use (e.g., 'hailuo', 'kling-1.6', 'runway-gen4', 'pika-2')",
+          description: "Model: hailuo (default), kling, runway, pika, veo-3, wan, sora, luma",
           default: "hailuo",
         },
         image_url: {
           type: "string",
-          description: "Optional image URL to use as the first frame (for image-to-video)",
+          description: "Optional image URL for image-to-video generation",
         },
         duration: {
           type: "number",
@@ -146,7 +215,7 @@ const TOOLS = [
         },
         aspect_ratio: {
           type: "string",
-          description: "Aspect ratio (e.g., '16:9', '9:16', '1:1')",
+          description: "Aspect ratio (16:9, 9:16, 1:1)",
           default: "16:9",
         },
       },
@@ -155,7 +224,7 @@ const TOOLS = [
   },
   {
     name: "get_job",
-    description: "Get the status and results of a generation job",
+    description: "Get the status and results of a generation job. Returns status (scheduled, processing, completed, failed) and result URLs when completed.",
     inputSchema: {
       type: "object",
       properties: {
@@ -169,25 +238,29 @@ const TOOLS = [
   },
   {
     name: "list_jobs",
-    description: "List recent generation jobs",
+    description: "List generation jobs with optional filtering",
     inputSchema: {
       type: "object",
       properties: {
         limit: {
           type: "number",
-          description: "Maximum number of jobs to return",
-          default: 10,
+          description: "Max jobs to return (1-1000)",
+          default: 100,
         },
         status: {
           type: "string",
-          description: "Filter by status (pending, processing, completed, failed)",
+          description: "Filter by status: scheduled, processing, completed, failed",
+        },
+        types: {
+          type: "string",
+          description: "Filter by type (comma-separated): flux, hailuo, kling, etc.",
         },
       },
     },
   },
   {
     name: "upload_asset",
-    description: "Upload an asset (image/video) to Krea for use in generations",
+    description: "Upload an image/video to Krea for use in generations",
     inputSchema: {
       type: "object",
       properties: {
@@ -197,7 +270,7 @@ const TOOLS = [
         },
         name: {
           type: "string",
-          description: "Name for the asset",
+          description: "Optional name for the asset",
         },
       },
       required: ["url"],
@@ -225,25 +298,25 @@ const TOOLS = [
       properties: {
         limit: {
           type: "number",
-          description: "Maximum number of assets to return",
-          default: 20,
+          description: "Max assets to return (1-1000)",
+          default: 100,
         },
       },
     },
   },
   {
     name: "search_styles",
-    description: "Search for available styles/LoRAs to use in image generation",
+    description: "Search for styles/LoRAs to use in image generation",
     inputSchema: {
       type: "object",
       properties: {
         query: {
           type: "string",
-          description: "Search query for styles",
+          description: "Search query",
         },
         limit: {
           type: "number",
-          description: "Maximum number of results",
+          description: "Max results",
           default: 10,
         },
       },
@@ -301,9 +374,10 @@ async function main() {
         case "generate_image":
           result = await client.generateImage({
             prompt: args.prompt,
-            model: args.model || "flux-dev",
-            width: args.width || 1024,
-            height: args.height || 1024,
+            model: args.model || "flux",
+            width: args.width,
+            height: args.height,
+            image_url: args.image_url,
             style_id: args.style_id,
             negative_prompt: args.negative_prompt,
           });
@@ -314,8 +388,8 @@ async function main() {
             prompt: args.prompt,
             model: args.model || "hailuo",
             image_url: args.image_url,
-            duration: args.duration || 5,
-            aspect_ratio: args.aspect_ratio || "16:9",
+            duration: args.duration,
+            aspect_ratio: args.aspect_ratio,
           });
           break;
 
@@ -325,8 +399,9 @@ async function main() {
 
         case "list_jobs":
           result = await client.listJobs({
-            limit: args.limit || 10,
+            limit: args.limit,
             status: args.status,
+            types: args.types,
           });
           break;
 
@@ -339,11 +414,11 @@ async function main() {
           break;
 
         case "list_assets":
-          result = await client.listAssets({ limit: args.limit || 20 });
+          result = await client.listAssets({ limit: args.limit });
           break;
 
         case "search_styles":
-          result = await client.searchStyles(args.query, { limit: args.limit || 10 });
+          result = await client.searchStyles(args.query, { limit: args.limit });
           break;
 
         case "get_style":
