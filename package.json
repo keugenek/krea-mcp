@@ -1,0 +1,26 @@
+{
+  "name": "krea-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Krea.ai - Generate images and videos with AI",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "krea-mcp": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [
+    "mcp",
+    "krea",
+    "ai",
+    "image-generation",
+    "video-generation",
+    "model-context-protocol"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  }
+}
