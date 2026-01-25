@@ -1,41 +1,41 @@
 # Krea MCP Server
 
-An MCP (Model Context Protocol) server for [Krea.ai](https://krea.ai) - Generate stunning images and videos with AI.
+[![npm version](https://img.shields.io/npm/v/krea-mcp.svg)](https://www.npmjs.com/package/krea-mcp)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MCP](https://img.shields.io/badge/MCP-Compatible-blue.svg)](https://modelcontextprotocol.io)
 
-## Features
+> **MCP server for [Krea.ai](https://krea.ai)** - Generate stunning AI images and videos using Flux, Hailuo, Runway, Kling, Ideogram, Imagen, and 20+ other state-of-the-art models.
 
-- **Image Generation** - Generate images using Flux, Ideogram, Imagen, Krea-1, and more
-- **Video Generation** - Create videos with Hailuo, Kling, Runway, Pika, and other models
-- **Asset Management** - Upload and manage images/videos for use in generations
-- **Style Search** - Find and apply custom styles (LoRAs) to your generations
-- **Job Tracking** - Monitor the status of your generation jobs
+Works with **Claude Desktop**, **Claude Code**, **Cursor**, and any MCP-compatible client.
 
-## Installation
+---
 
-### Prerequisites
+## Why Krea MCP?
 
-- Node.js 18+
-- A Krea API key (get one at [krea.ai](https://krea.ai))
+- **20+ AI Models** - Access Flux, Ideogram, Imagen 4, Runway Gen-4, Hailuo, Kling, Pika, Veo 3, and more through one unified interface
+- **Text-to-Image** - Generate photorealistic images, art, illustrations from text prompts
+- **Text-to-Video** - Create AI videos with natural motion and cinematic quality
+- **Image-to-Video** - Animate any image with AI-powered motion
+- **Custom Styles** - Apply LoRA styles for consistent aesthetics
+- **Simple Setup** - One command install, works instantly with Claude
 
-### Install from npm
+---
+
+## Quick Start
+
+### 1. Install
 
 ```bash
 npm install -g krea-mcp
 ```
 
-### Install from source
+### 2. Get API Key
 
-```bash
-git clone https://github.com/bmorphism/krea-mcp.git
-cd krea-mcp
-npm install
-```
+Get your API key from [krea.ai](https://krea.ai)
 
-## Configuration
+### 3. Configure Claude Desktop
 
-### Claude Desktop
-
-Add to your Claude Desktop config (`~/.config/claude/claude_desktop_config.json` on Linux, `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+Add to `~/.config/claude/claude_desktop_config.json` (Linux) or `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS):
 
 ```json
 {
@@ -51,117 +51,184 @@ Add to your Claude Desktop config (`~/.config/claude/claude_desktop_config.json`
 }
 ```
 
-### Claude Code
+### 3b. Or Configure Claude Code
 
 ```bash
-claude mcp add krea -- npx krea-mcp
+claude mcp add krea -e KREA_API_KEY=your-api-key -- npx krea-mcp
 ```
 
-Then set your API key:
-```bash
-export KREA_API_KEY="your-api-key-here"
-```
+---
 
-## Claude Code Skill
+## Features
 
-This repo includes a `/krea` skill for Claude Code. To use it, copy the `.claude/skills/krea` directory to your project or `~/.claude/skills/`.
+### Image Generation
 
-### Usage
+Generate images with state-of-the-art AI models:
 
 ```
-/krea a cyberpunk cityscape at night
-/krea video a cat playing with yarn
-/krea status job_abc123
-/krea styles anime
+"Generate a cyberpunk cityscape at sunset with neon lights reflecting on wet streets"
 ```
+
+**Supported models:** Flux Dev, Flux Pro, Flux Schnell, Ideogram V2, Imagen 4, Krea 1, ChatGPT Image, Topaz, Bloom, and more.
+
+### Video Generation
+
+Create AI videos from text or images:
+
+```
+"Create a video of a golden retriever running through a field of sunflowers"
+```
+
+**Supported models:** Hailuo, Kling 1.6, Runway Gen-4, Pika 2, Veo 3, Sora 2, Seedance, Ray 2, and more.
+
+### Style Transfer
+
+Apply custom styles (LoRAs) to your generations:
+
+```
+"Generate an image in anime style of a samurai in cherry blossom garden"
+```
+
+### Asset Management
+
+Upload and manage your images for image-to-video and other workflows.
+
+---
 
 ## Available Tools
 
-### `generate_image`
-Generate an image from a text prompt.
+| Tool | Description |
+|------|-------------|
+| `generate_image` | Generate images from text prompts |
+| `generate_video` | Generate videos from text or images |
+| `get_job` | Check generation job status |
+| `list_jobs` | List recent generation jobs |
+| `upload_asset` | Upload images/videos for use in generations |
+| `get_asset` | Get asset details |
+| `list_assets` | List uploaded assets |
+| `search_styles` | Search for styles/LoRAs |
+| `get_style` | Get style details |
 
-Parameters:
-- `prompt` (required): Text description of the image
-- `model`: Model to use (default: "flux-dev")
-- `width`: Image width in pixels (default: 1024)
-- `height`: Image height in pixels (default: 1024)
-- `style_id`: Optional style ID to apply
-- `negative_prompt`: What to avoid in the image
+---
 
-### `generate_video`
-Generate a video from a text prompt or image.
+## Claude Code Skill
 
-Parameters:
-- `prompt` (required): Text description of the video
-- `model`: Model to use (default: "hailuo")
-- `image_url`: Optional image URL for image-to-video
-- `duration`: Video duration in seconds (default: 5)
-- `aspect_ratio`: Aspect ratio (default: "16:9")
+This repo includes a `/krea` slash command for Claude Code.
 
-### `get_job`
-Get the status and results of a generation job.
+**Install the skill:**
+```bash
+cp -r .claude/skills/krea ~/.claude/skills/
+```
 
-Parameters:
-- `job_id` (required): The job ID to check
+**Usage:**
+```
+/krea a photorealistic portrait of a astronaut on mars
+/krea video ocean waves crashing on rocks at golden hour
+/krea status job_abc123
+/krea styles cyberpunk
+```
 
-### `list_jobs`
-List recent generation jobs.
-
-Parameters:
-- `limit`: Maximum number of jobs (default: 10)
-- `status`: Filter by status (pending, processing, completed, failed)
-
-### `upload_asset`
-Upload an asset for use in generations.
-
-Parameters:
-- `url` (required): URL of the asset to upload
-- `name`: Name for the asset
-
-### `get_asset`
-Get details of an uploaded asset.
-
-Parameters:
-- `asset_id` (required): The asset ID
-
-### `list_assets`
-List uploaded assets.
-
-Parameters:
-- `limit`: Maximum number of assets (default: 20)
-
-### `search_styles`
-Search for available styles/LoRAs.
-
-Parameters:
-- `query` (required): Search query
-- `limit`: Maximum results (default: 10)
-
-### `get_style`
-Get details of a specific style.
-
-Parameters:
-- `style_id` (required): The style ID
+---
 
 ## Supported Models
 
 ### Image Models
-- `flux-dev` - FLUX.1 Dev
-- `flux-pro` - FLUX.1 Pro
-- `flux-schnell` - FLUX.1 Schnell
-- `ideogram-v2` - Ideogram V2
-- `imagen-4` - Google Imagen 4
-- `krea-1` - Krea 1
-- And many more...
+
+| Model | ID | Best For |
+|-------|-----|----------|
+| FLUX.1 Dev | `flux-dev` | High quality, balanced |
+| FLUX.1 Pro | `flux-pro` | Highest quality |
+| FLUX.1 Schnell | `flux-schnell` | Fast generation |
+| Ideogram V2 | `ideogram-v2` | Text in images |
+| Imagen 4 | `imagen-4` | Photorealism |
+| Krea 1 | `krea-1` | Creative styles |
+| ChatGPT Image | `chatgpt-image` | General purpose |
 
 ### Video Models
-- `hailuo` - Hailuo AI
-- `kling-1.6` - Kling 1.6
-- `runway-gen4` - Runway Gen-4
-- `pika-2` - Pika 2.0
-- `veo-3` - Google Veo 3
-- And many more...
+
+| Model | ID | Best For |
+|-------|-----|----------|
+| Hailuo | `hailuo` | High quality, natural motion |
+| Kling 1.6 | `kling-1.6` | Detailed motion |
+| Runway Gen-4 | `runway-gen4` | Cinematic quality |
+| Pika 2 | `pika-2` | Creative styles |
+| Veo 3 | `veo-3` | Google's latest |
+| Sora 2 | `sora-2` | OpenAI's model |
+
+---
+
+## API Reference
+
+### generate_image
+
+```typescript
+{
+  prompt: string,        // Required: Image description
+  model?: string,        // Default: "flux-dev"
+  width?: number,        // Default: 1024
+  height?: number,       // Default: 1024
+  style_id?: string,     // Optional: Style/LoRA ID
+  negative_prompt?: string
+}
+```
+
+### generate_video
+
+```typescript
+{
+  prompt: string,        // Required: Video description
+  model?: string,        // Default: "hailuo"
+  image_url?: string,    // Optional: First frame for i2v
+  duration?: number,     // Default: 5 seconds
+  aspect_ratio?: string  // Default: "16:9"
+}
+```
+
+---
+
+## Examples
+
+### Generate a Product Photo
+```
+Use Krea to generate a professional product photo of a perfume bottle
+on a marble surface with soft studio lighting
+```
+
+### Create a Social Media Video
+```
+Generate a 5-second video of coffee being poured into a cup in slow motion,
+cinematic lighting, 9:16 aspect ratio for Instagram Reels
+```
+
+### Apply a Custom Style
+```
+Search for "watercolor" styles and generate an image of a Paris street scene
+using that style
+```
+
+---
+
+## Links
+
+- [Krea.ai](https://krea.ai) - Official Krea website
+- [Krea API Docs](https://docs.krea.ai) - API documentation
+- [MCP Specification](https://modelcontextprotocol.io) - Model Context Protocol
+- [Claude Desktop](https://claude.ai/download) - Download Claude Desktop
+
+---
+
+## Contributing
+
+Contributions welcome! Please feel free to submit a Pull Request.
+
+---
 
 ## License
 
-MIT
+MIT License - see [LICENSE](LICENSE) for details.
+
+---
+
+## Keywords
+
+mcp, mcp-server, model-context-protocol, krea, krea-ai, ai, artificial-intelligence, image-generation, video-generation, text-to-image, text-to-video, image-to-video, flux, ideogram, imagen, runway, hailuo, kling, pika, veo, sora, generative-ai, ai-art, ai-video, claude, anthropic, claude-desktop, claude-code, cursor, llm, llm-tools, ai-tools, machine-learning, deep-learning, stable-diffusion, diffusion-models

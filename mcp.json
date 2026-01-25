@@ -1,0 +1,87 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/registry/main/schema/mcp.schema.json",
+  "name": "krea-mcp",
+  "display_name": "Krea MCP Server",
+  "description": "Generate AI images and videos with Flux, Hailuo, Runway, Kling, Ideogram, Imagen and 20+ models",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/keugenek/krea-mcp",
+  "homepage": "https://krea.ai",
+  "author": {
+    "name": "keugenek"
+  },
+  "categories": [
+    "media",
+    "ai",
+    "image-generation",
+    "video-generation"
+  ],
+  "tags": [
+    "krea",
+    "flux",
+    "imagen",
+    "ideogram",
+    "runway",
+    "hailuo",
+    "kling",
+    "pika",
+    "veo",
+    "text-to-image",
+    "text-to-video",
+    "image-to-video",
+    "ai-art",
+    "generative-ai"
+  ],
+  "install": {
+    "npm": "krea-mcp"
+  },
+  "config": {
+    "command": "npx",
+    "args": ["krea-mcp"],
+    "env": {
+      "KREA_API_KEY": {
+        "description": "Your Krea API key from krea.ai",
+        "required": true,
+        "secret": true
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "generate_image",
+      "description": "Generate an image from a text prompt using AI models like Flux, Ideogram, Imagen"
+    },
+    {
+      "name": "generate_video",
+      "description": "Generate a video from text or image using AI models like Hailuo, Runway, Kling"
+    },
+    {
+      "name": "get_job",
+      "description": "Check the status and results of a generation job"
+    },
+    {
+      "name": "list_jobs",
+      "description": "List recent generation jobs"
+    },
+    {
+      "name": "upload_asset",
+      "description": "Upload an image or video asset for use in generations"
+    },
+    {
+      "name": "get_asset",
+      "description": "Get details of an uploaded asset"
+    },
+    {
+      "name": "list_assets",
+      "description": "List uploaded assets"
+    },
+    {
+      "name": "search_styles",
+      "description": "Search for available styles and LoRAs"
+    },
+    {
+      "name": "get_style",
+      "description": "Get details of a specific style"
+    }
+  ]
+}

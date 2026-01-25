@@ -1,7 +1,7 @@
 {
   "name": "krea-mcp",
   "version": "1.0.0",
-  "description": "MCP server for Krea.ai - Generate images and videos with AI",
+  "description": "MCP server for Krea.ai - Generate stunning AI images and videos with Flux, Hailuo, Runway, Kling, Ideogram, Imagen and 20+ models. Works with Claude Desktop, Claude Code, Cursor.",
   "main": "src/index.js",
   "type": "module",
   "bin": {
@@ -12,14 +12,52 @@
   },
   "keywords": [
     "mcp",
+    "mcp-server",
+    "model-context-protocol",
     "krea",
+    "krea-ai",
     "ai",
+    "artificial-intelligence",
     "image-generation",
     "video-generation",
-    "model-context-protocol"
+    "text-to-image",
+    "text-to-video",
+    "image-to-video",
+    "flux",
+    "ideogram",
+    "imagen",
+    "runway",
+    "hailuo",
+    "kling",
+    "pika",
+    "veo",
+    "generative-ai",
+    "ai-art",
+    "ai-video",
+    "claude",
+    "anthropic",
+    "claude-desktop",
+    "claude-code",
+    "cursor",
+    "llm",
+    "llm-tools",
+    "ai-tools",
+    "stable-diffusion",
+    "diffusion-models"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keugenek/krea-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/keugenek/krea-mcp/issues"
+  },
+  "homepage": "https://github.com/keugenek/krea-mcp#readme",
   "author": "",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0"
   }
