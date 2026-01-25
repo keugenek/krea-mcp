@@ -62,6 +62,19 @@ Then set your API key:
 export KREA_API_KEY="your-api-key-here"
 ```
 
+## Claude Code Skill
+
+This repo includes a `/krea` skill for Claude Code. To use it, copy the `.claude/skills/krea` directory to your project or `~/.claude/skills/`.
+
+### Usage
+
+```
+/krea a cyberpunk cityscape at night
+/krea video a cat playing with yarn
+/krea status job_abc123
+/krea styles anime
+```
+
 ## Available Tools
 
 ### `generate_image`
