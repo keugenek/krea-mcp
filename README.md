@@ -14,6 +14,27 @@ Works with **Claude Desktop**, **Claude Code**, **Cursor**, and any MCP-compatib
 
 ---
 
+## Quick Start (No installation required!)
+
+You can run the MCP server directly via `npx`:
+
+```json
+{
+  "mcpServers": {
+    "krea": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@vmosaic/krea-mcp-server"
+      ],
+      "env": {
+        "KREA_API_KEY": "YOUR_KREA_API_KEY"
+      }
+    }
+  }
+}
+```
+
 ## Why Krea MCP?
 
 - **20+ AI Models** - Access Flux, Ideogram, Imagen 4, Runway Gen-4, Hailuo, Kling, Pika, Veo 3, and more through one unified interface

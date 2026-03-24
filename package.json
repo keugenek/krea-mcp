@@ -59,6 +59,7 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0"
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@vmosaic/krea-mcp-server": "^1.0.0"
   }
 }
