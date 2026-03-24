@@ -8,7 +8,7 @@
 
 > **MCP server for [Krea.ai](https://krea.ai)** - Generate stunning AI images and videos using Flux, Hailuo, Runway, Kling, Ideogram, Imagen, and 20+ other state-of-the-art models.
 
-**212+ developers** have cloned this repo. Works with **Claude Desktop**, **Claude Code**, **Cursor**, and any MCP-compatible client.
+**212+ developers** have cloned this repo within 2 weeks. Works with **Claude Desktop**, **Claude Code**, **Cursor**, and any MCP-compatible client.
 
 Works with **Claude Desktop**, **Claude Code**, **Cursor**, and any MCP-compatible client.
 
