@@ -14,6 +14,8 @@
 
 ## Quick Start (No installation required!)
 
+![Krea MCP Demo](https://raw.githubusercontent.com/keugenek/krea-mcp/main/krea-demo.gif)
+
 You can run the MCP server directly via `npx`:
 
 ```json
