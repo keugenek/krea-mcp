@@ -3,6 +3,8 @@
 [![npm version](https://img.shields.io/npm/v/krea-mcp.svg)](https://www.npmjs.com/package/krea-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue.svg)](https://modelcontextprotocol.io)
+[![CI](https://github.com/keugenek/krea-mcp/workflows/CI/badge.svg)](https://github.com/keugenek/krea-mcp/actions)
+[![GitHub stars](https://img.shields.io/github/stars/keugenek/krea-mcp.svg)](https://github.com/keugenek/krea-mcp/stargazers)
 
 > **MCP server for [Krea.ai](https://krea.ai)** - Generate stunning AI images and videos using Flux, Hailuo, Runway, Kling, Ideogram, Imagen, and 20+ other state-of-the-art models.
 
