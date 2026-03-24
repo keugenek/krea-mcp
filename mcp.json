@@ -4,7 +4,7 @@
   "display_name": "Krea MCP Server",
   "description": "Generate AI images and videos with Flux, Hailuo, Runway, Kling, Ideogram, Imagen and 20+ models",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": "https://github.com/keugenek/krea-mcp",
   "homepage": "https://krea.ai",
   "author": {
@@ -33,11 +33,11 @@
     "generative-ai"
   ],
   "install": {
-    "npm": "krea-mcp"
+    "npm": "@vmosaic/krea-mcp-server"
   },
   "config": {
     "command": "npx",
-    "args": ["krea-mcp"],
+    "args": ["-y", "@vmosaic/krea-mcp-server"],
     "env": {
       "KREA_API_KEY": {
         "description": "Your Krea API key from krea.ai",
