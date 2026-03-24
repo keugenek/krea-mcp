@@ -1,6 +1,6 @@
 {
   "name": "@vmosaic/krea-mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for Krea.ai - Generate stunning AI images and videos with Flux, Hailuo, Runway, Kling, Ideogram, Imagen and 20+ models. Works with Claude Desktop, Claude Code, Cursor.",
   "main": "src/index.js",
   "type": "module",
