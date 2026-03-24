@@ -1,5 +1,5 @@
 {
-  "name": "krea-mcp",
+  "name": "krea-mcp-client",
   "version": "1.0.0",
   "description": "MCP server for Krea.ai - Generate stunning AI images and videos with Flux, Hailuo, Runway, Kling, Ideogram, Imagen and 20+ models. Works with Claude Desktop, Claude Code, Cursor.",
   "main": "src/index.js",
