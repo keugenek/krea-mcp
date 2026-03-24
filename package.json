@@ -7,6 +7,13 @@
   "bin": {
     "krea-mcp": "src/index.js"
   },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "llms.txt",
+    "mcp.json"
+  ],
   "scripts": {
     "start": "node src/index.js"
   },
@@ -55,11 +62,13 @@
   "homepage": "https://github.com/keugenek/krea-mcp#readme",
   "author": "",
   "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
-    "@vmosaic/krea-mcp-server": "^1.0.0"
+    "@modelcontextprotocol/sdk": "^1.0.0"
   }
 }

@@ -9,7 +9,7 @@ An MCP (Model Context Protocol) server that connects Claude, Cursor, and other A
 ## Installation
 
 ```bash
-npm install -g krea-mcp
+npm install -g @vmosaic/krea-mcp-server
 ```
 
 ## Configuration
@@ -19,14 +19,14 @@ Set KREA_API_KEY environment variable with your Krea API key.
 For Claude Desktop, add to config:
 ```json
 {
-  "mcpServers": {
-    "krea": {
-      "command": "npx",
-      "args": ["krea-mcp"],
-      "env": {
-        "KREA_API_KEY": "your-key"
+    "mcpServers": {
+      "krea": {
+        "command": "npx",
+        "args": ["-y", "@vmosaic/krea-mcp-server"],
+        "env": {
+          "KREA_API_KEY": "your-key"
+        }
       }
-    }
   }
 }
 ```

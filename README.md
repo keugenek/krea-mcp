@@ -1,6 +1,6 @@
 # Krea MCP Server
 
-[![npm version](https://img.shields.io/npm/v/@vmosaic/krea-mcp-server.svg)](https://www.npmjs.com/package/@vmosaic/krea-mcp-server)
+[![npm version](https://img.shields.io/npm/v/%40vmosaic%2Fkrea-mcp-server.svg)](https://www.npmjs.com/package/@vmosaic/krea-mcp-server)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue.svg)](https://modelcontextprotocol.io)
 [![CI](https://github.com/keugenek/krea-mcp/workflows/CI/badge.svg)](https://github.com/keugenek/krea-mcp/actions)
@@ -9,8 +9,6 @@
 > **MCP server for [Krea.ai](https://krea.ai)** - Generate stunning AI images and videos using Flux, Hailuo, Runway, Kling, Ideogram, Imagen, and 20+ other state-of-the-art models.
 
 **212+ developers** have cloned this repo within 2 weeks. Works with **Claude Desktop**, **Claude Code**, **Cursor**, and any MCP-compatible client.
-
-Works with **Claude Desktop**, **Claude Code**, **Cursor**, and any MCP-compatible client.
 
 ---
 
@@ -46,19 +44,25 @@ You can run the MCP server directly via `npx`:
 
 ---
 
-## Quick Start
+## Optional Global Install
 
 ### 1. Install
 
 ```bash
-npm install -g krea-mcp
+npm install -g @vmosaic/krea-mcp-server
 ```
 
 ### 2. Get API Key
 
 Get your API key from [krea.ai](https://krea.ai)
 
-### 3. Configure Claude Desktop
+### 3. Run the global binary
+
+```bash
+krea-mcp
+```
+
+### 4. Configure Claude Desktop with the global binary
 
 Add to `~/.config/claude/claude_desktop_config.json` (Linux) or `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS):
 
@@ -66,8 +70,7 @@ Add to `~/.config/claude/claude_desktop_config.json` (Linux) or `~/Library/Appli
 {
   "mcpServers": {
     "krea": {
-      "command": "npx",
-      "args": ["krea-mcp"],
+      "command": "krea-mcp",
       "env": {
         "KREA_API_KEY": "your-api-key-here"
       }
@@ -76,10 +79,10 @@ Add to `~/.config/claude/claude_desktop_config.json` (Linux) or `~/Library/Appli
 }
 ```
 
-### 3b. Or Configure Claude Code
+### 4b. Or configure Claude Code without a global install
 
 ```bash
-claude mcp add krea -e KREA_API_KEY=your-api-key -- npx krea-mcp
+claude mcp add krea -e KREA_API_KEY=your-api-key -- npx -y @vmosaic/krea-mcp-server
 ```
 
 ---
