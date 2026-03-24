@@ -1,6 +1,6 @@
 # Krea MCP Server
 
-[![npm version](https://img.shields.io/npm/v/krea-mcp-server.svg)](https://www.npmjs.com/package/krea-mcp-server)
+[![npm version](https://img.shields.io/npm/v/@vmosaic/krea-mcp-server.svg)](https://www.npmjs.com/package/@vmosaic/krea-mcp-server)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue.svg)](https://modelcontextprotocol.io)
 [![CI](https://github.com/keugenek/krea-mcp/workflows/CI/badge.svg)](https://github.com/keugenek/krea-mcp/actions)
