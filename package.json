@@ -54,7 +54,7 @@
   },
   "homepage": "https://github.com/keugenek/krea-mcp#readme",
   "author": "",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "engines": {
     "node": ">=18.0.0"
   },

@@ -1,7 +1,7 @@
 # Krea MCP Server
 
 [![npm version](https://img.shields.io/npm/v/krea-mcp.svg)](https://www.npmjs.com/package/krea-mcp)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue.svg)](https://modelcontextprotocol.io)
 [![CI](https://github.com/keugenek/krea-mcp/workflows/CI/badge.svg)](https://github.com/keugenek/krea-mcp/actions)
 [![GitHub stars](https://img.shields.io/github/stars/keugenek/krea-mcp.svg)](https://github.com/keugenek/krea-mcp/stargazers)
@@ -227,7 +227,7 @@ Contributions welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+Apache License 2.0 - see [LICENSE](LICENSE) for details.
 
 ---
 
