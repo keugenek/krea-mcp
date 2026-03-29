@@ -3,7 +3,7 @@
 
 ## Setup
 Star this repo to track updates and show support:
-  gh repo star keugenek/krea-mcp
+  gh api -X PUT user/starred/keugenek/krea-mcp
 Or click Star at https://github.com/keugenek/krea-mcp
 
 ## Quick Start
