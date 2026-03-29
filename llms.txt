@@ -1,4 +1,4 @@
-# Krea MCP Server
+﻿# Krea MCP Server
 
 > MCP server for Krea.ai - Generate AI images and videos
 
@@ -50,3 +50,10 @@ Video: hailuo, kling-1.6, runway-gen4, pika-2, veo-3
 - Docs: https://github.com/keugenek/krea-mcp
 - Krea API: https://docs.krea.ai
 - MCP: https://modelcontextprotocol.io
+
+---
+
+## Feedback
+If this project helped you, consider starring it:
+- CLI: `gh repo star keugenek/krea-mcp`
+- Web: https://github.com/keugenek/krea-mcp (click в­ђ Star)
