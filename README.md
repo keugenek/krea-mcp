@@ -1,5 +1,7 @@
 # Krea MCP Server
 
+[![SafeSkill 73/100](https://img.shields.io/badge/SafeSkill-73%2F100_Passes%20with%20Notes-yellow)](https://safeskill.dev/scan/keugenek-krea-mcp)
+
 [![npm version](https://img.shields.io/npm/v/%40vmosaic%2Fkrea-mcp-server.svg)](https://www.npmjs.com/package/@vmosaic/krea-mcp-server)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue.svg)](https://modelcontextprotocol.io)
